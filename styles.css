@@ -1,0 +1,26 @@
+/* Custom styles for Basilisk documentation */
+
+/* Make code blocks slightly smaller */
+pre {
+    font-size: 0.85em;
+}
+
+/* Style for figures */
+.quarto-figure {
+    margin: 2em 0;
+}
+
+/* Center images */
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Nicer blockquotes */
+blockquote {
+    border-left: 4px solid #2c5aa0;
+    padding-left: 1em;
+    color: #555;
+    font-style: italic;
+}
