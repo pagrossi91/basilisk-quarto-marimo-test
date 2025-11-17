@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Claude &amp; Basilisk Simulation Tutorial Documentation">
+<meta name="author" content="Basilisk Simulation Tutorial">
 
-<title>Basilisk Basic Orbit Scenario – Basilisk Simulations</title>
+<title>Basilisk Basic Orbit Scenario</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -59,101 +59,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
-  }
-}</script>
+<script src="scenarioBasicOrbit_files/libs/clipboard/clipboard.min.js"></script>
+<script src="scenarioBasicOrbit_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="scenarioBasicOrbit_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="scenarioBasicOrbit_files/libs/quarto-html/popper.min.js"></script>
+<script src="scenarioBasicOrbit_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="scenarioBasicOrbit_files/libs/quarto-html/anchor.min.js"></script>
+<link href="scenarioBasicOrbit_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="scenarioBasicOrbit_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="scenarioBasicOrbit_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="scenarioBasicOrbit_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="scenarioBasicOrbit_files/libs/bootstrap/bootstrap-8a894fcc3cb5e37eb5bf30def131be2f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
-<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="quarto-light">
 
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Basilisk Simulations</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorials" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Tutorials</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorials">    
-        <li>
-    <a class="dropdown-item" href="../main/scenarioBasicOrbit.html">
- <span class="dropdown-text">Basic Orbit</span></a>
-  </li>  
-    </ul>
-  </li>
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-<!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
@@ -179,8 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
-    </div>
-<!-- main -->
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -196,7 +121,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Claude &amp; Basilisk Simulation Tutorial Documentation </p>
+             <p>Basilisk Simulation Tutorial </p>
           </div>
   </div>
     
@@ -223,7 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <p>First, we’ll import the necessary Basilisk modules and set up our simulation environment:</p>
-<div id="ab9b72f6" class="cell" data-execution_count="1">
+<div id="5aee0f4e" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-stdout">
 <pre><code>✓ Basilisk loaded from: /Users/paulgrossi/Documents/Basilisk2/.venv/lib/python3.13/site-packages/Basilisk</code></pre>
 </div>
@@ -232,7 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="simulation-configuration" class="level2">
 <h2 class="anchored" data-anchor-id="simulation-configuration">Simulation Configuration</h2>
 <p>We’ll configure the simulation with the following parameters:</p>
-<div id="b677f981" class="cell" data-execution_count="2">
+<div id="14c07ea1" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>Orbit Type: LEO
 Planet: Earth
@@ -249,7 +174,7 @@ Spherical Harmonics: False</code></pre>
 <p>Let’s walk through the key steps of setting up this simulation to understand what’s happening:</p>
 <section id="create-simulation-container" class="level3">
 <h3 class="anchored" data-anchor-id="create-simulation-container">1. Create Simulation Container</h3>
-<div id="a020931d" class="cell" data-execution_count="4">
+<div id="ee5ef81c" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
 <pre><code>✓ Simulation container created</code></pre>
 </div>
@@ -257,7 +182,7 @@ Spherical Harmonics: False</code></pre>
 </section>
 <section id="create-spacecraft" class="level3">
 <h3 class="anchored" data-anchor-id="create-spacecraft">2. Create Spacecraft</h3>
-<div id="4da4a48e" class="cell" data-execution_count="5">
+<div id="5864b73b" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-stdout">
 <pre><code>✓ Spacecraft 'tutorial-sat' created</code></pre>
 </div>
@@ -265,7 +190,7 @@ Spherical Harmonics: False</code></pre>
 </section>
 <section id="setup-gravity-model" class="level3">
 <h3 class="anchored" data-anchor-id="setup-gravity-model">3. Setup Gravity Model</h3>
-<div id="128e86e0" class="cell" data-execution_count="6">
+<div id="2368dc9c" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>✓ Earth gravity (point mass)
   μ = 398600.436 × 10⁹ m³/s²</code></pre>
@@ -274,7 +199,7 @@ Spherical Harmonics: False</code></pre>
 </section>
 <section id="define-orbital-initial-conditions" class="level3">
 <h3 class="anchored" data-anchor-id="define-orbital-initial-conditions">4. Define Orbital Initial Conditions</h3>
-<div id="721d5484" class="cell" data-execution_count="7">
+<div id="04d9c01d" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Orbital Elements:
@@ -289,7 +214,7 @@ Initial Velocity: [-6.180, -4.160, 1.205] km/s</code></pre>
 </section>
 <section id="set-initial-conditions-and-run" class="level3">
 <h3 class="anchored" data-anchor-id="set-initial-conditions-and-run">5. Set Initial Conditions and Run</h3>
-<div id="d663e26e" class="cell" data-execution_count="8">
+<div id="9ac3f835" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Orbital Period: 97.1 minutes
@@ -303,7 +228,7 @@ Simulation Duration: 72.9 minutes</code></pre>
 <section id="inertial-position-components" class="level3">
 <h3 class="anchored" data-anchor-id="inertial-position-components">Inertial Position Components</h3>
 <p>Let’s plot the spacecraft’s position in the inertial frame:</p>
-<div id="3cba096c" class="cell" data-fig-height="6" data-fig-width="10" data-execution_count="10">
+<div id="2b1f54ef" class="cell" data-fig-height="6" data-fig-width="10" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -317,7 +242,7 @@ Simulation Duration: 72.9 minutes</code></pre>
 <section id="orbit-in-perifocal-frame" class="level3">
 <h3 class="anchored" data-anchor-id="orbit-in-perifocal-frame">Orbit in Perifocal Frame</h3>
 <p>Visualize the orbit shape in the perifocal reference frame:</p>
-<div id="6e9e9620" class="cell" data-fig-height="8" data-fig-width="8" data-execution_count="11">
+<div id="346f026e" class="cell" data-fig-height="8" data-fig-width="8" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -331,7 +256,7 @@ Simulation Duration: 72.9 minutes</code></pre>
 <section id="trajectory-accuracy" class="level3">
 <h3 class="anchored" data-anchor-id="trajectory-accuracy">Trajectory Accuracy</h3>
 <p>Compare the numerical trajectory with the theoretical osculating orbit:</p>
-<div id="9ec12893" class="cell" data-fig-height="6" data-fig-width="10" data-execution_count="12">
+<div id="05af9a59" class="cell" data-fig-height="6" data-fig-width="10" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -378,13 +303,12 @@ This represents 0.002 ppm of the orbit radius</code></pre>
 <li><a href="https://hanspeterschaub.info/basilisk/">Basilisk Documentation</a></li>
 <li><a href="https://www.elsevier.com/books/orbital-mechanics-for-engineering-students/curtis/978-0-08-097747-8">Orbital Mechanics by Curtis</a></li>
 </ul>
-
-
 <!-- -->
 
 </section>
 
-</main> <!-- /main -->
+</main>
+<!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -508,7 +432,7 @@ This represents 0.002 ppm of the orbit radius</code></pre>
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/pagrossi91\.github\.io\/basilisk-quarto-marimo-test\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -838,7 +762,7 @@ This represents 0.002 ppm of the orbit radius</code></pre>
 <div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Basilisk Basic Orbit Scenario"</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Demonstrating spacecraft orbital dynamics with gravity modeling"</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Claude &amp; Basilisk Simulation Tutorial Documentation"</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Basilisk Simulation Tutorial"</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: false</span></span>

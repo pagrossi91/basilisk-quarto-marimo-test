@@ -179,7 +179,7 @@
     "href": "index.html#getting-started",
     "title": "Basilisk Spacecraft Simulation Documentation",
     "section": "Getting Started",
-    "text": "Getting Started\n\nTutorials\nExplore these tutorials to learn Basilisk fundamentals:\n\nBasic Orbit Scenario - Learn how to set up orbital simulations with different gravity models and orbit types\n\n\n\nInstallation\nTo run these simulations yourself:\n\nClone the Basilisk repository\nFollow the installation instructions\nInstall required Python packages: pip install numpy matplotlib jupyter"
+    "text": "Getting Started\n\nTutorials\nExplore these tutorials to learn Basilisk fundamentals:\n\nBasic Orbit Scenario - Learn how to set up orbital simulations with different gravity models and orbit types\n\n\n\nInstallation\nTo run these simulations yourself:\n\nClone the Basilisk repository\nFollow the installation instructions\nInstall required Python packages: pip3 install numpy matplotlib jupyter"
   },
   {
     "objectID": "index.html#about",
