@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Basilisk
+basilisk-repo/
+examples-copy/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+
+# Quarto
+/.quarto/
+*_files/
+*.html
+
+# Outputs - generated files
+outputs/
+
+# Test files
+test_import.py

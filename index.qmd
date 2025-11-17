@@ -1,0 +1,52 @@
+---
+title: "Basilisk Spacecraft Simulation Documentation"
+subtitle: "Astrodynamics tutorials and analysis"
+---
+
+## Welcome
+
+This site contains documentation, tutorials, and analyses for spacecraft simulations using the [Basilisk](https://hanspeterschaub.info/basilisk/) astrodynamics framework.
+
+Basilisk is an open-source spacecraft simulation framework developed by the University of Colorado Boulder's Autonomous Vehicle Systems Lab. It provides high-fidelity modeling of:
+
+- Orbital dynamics
+- Attitude dynamics and control
+- Power systems
+- Communication systems
+- Sensor and actuator models
+- Hardware-in-the-loop testing
+
+## Getting Started
+
+### Tutorials
+
+Explore these tutorials to learn Basilisk fundamentals:
+
+- **[Basic Orbit Scenario](docs/scenarioBasicOrbit.html)** - Learn how to set up orbital simulations with different gravity models and orbit types
+
+### Installation
+
+To run these simulations yourself:
+
+1. Clone the [Basilisk repository](https://github.com/AVSLab/basilisk)
+2. Follow the [installation instructions](https://hanspeterschaub.info/basilisk/Install/installOnMacOS.html)
+3. Install required Python packages: `pip install numpy matplotlib jupyter`
+
+## About
+
+These tutorials demonstrate practical applications of Basilisk for spacecraft mission analysis and design. Each tutorial includes:
+
+- Detailed explanations of the simulation setup
+- Fully executable Python code
+- Visualizations and analysis of results
+- References for further learning
+
+## Resources
+
+- [Basilisk Documentation](https://hanspeterschaub.info/basilisk/)
+- [Basilisk GitHub Repository](https://github.com/AVSLab/basilisk)
+- [AVS Lab at CU Boulder](http://hanspeterschaub.info/AVSlab.html)
+
+---
+
+*Last updated: {{< meta date >}}*

@@ -1,0 +1,28 @@
+project:
+  type: website
+  output-dir: _site
+  
+website:
+  title: "Basilisk Simulations"
+  navbar:
+    left:
+      - text: "Home"
+        file: index.qmd
+      - text: "Tutorials"
+        menu:
+          - text: "Basic Orbit"
+            file: docs/scenarioBasicOrbit.qmd
+  
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    code-tools: true
+    css: styles.css
+    
+execute:
+  echo: false
+  warning: false
+  freeze: auto
