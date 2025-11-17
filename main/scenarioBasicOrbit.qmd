@@ -1,0 +1,394 @@
+---
+title: "Basilisk Basic Orbit Scenario"
+subtitle: "Demonstrating spacecraft orbital dynamics with gravity modeling"
+author: "Claude & Basilisk Simulation Tutorial Documentation"
+format:
+  html:
+    code-fold: false
+    toc: true
+    toc-depth: 3
+execute: 
+  echo: false        # Hide all code by default
+  warning: false     # Hide all warnings
+jupyter: python3
+---
+
+## Overview
+
+This document demonstrates the Basic Orbit scenario from Basilisk, which shows how to set up a spacecraft orbiting a celestial body. The gravity can be modeled as a simple first-order approximation or include high-order spherical harmonic terms for greater accuracy.
+
+The scenario illustrates:
+
+-   Setting up a spacecraft with orbital initial conditions
+-   Creating gravitational body models (Earth or Mars)
+-   Running orbital simulations with different orbit types
+-   Visualizing orbital trajectories and analyzing results
+
+## Setup
+
+First, we'll import the necessary Basilisk modules and set up our simulation environment:
+
+```{python}
+import os
+import sys
+import numpy as np
+import matplotlib.pyplot as plt
+from copy import copy
+
+# Add examples-copy to path so we can import the scenario
+sys.path.insert(0, '../examples-copy')
+
+# Import Basilisk modules
+from Basilisk import __path__ as bskPath
+from Basilisk.utilities import SimulationBaseClass, macros, orbitalMotion
+from Basilisk.utilities import simIncludeGravBody, unitTestSupport, vizSupport
+from Basilisk.simulation import spacecraft
+
+print(f"✓ Basilisk loaded from: {bskPath[0]}")
+```
+
+## Simulation Configuration
+
+We'll configure the simulation with the following parameters:
+
+```{python}
+# Simulation parameters
+show_plots = True
+orbit_case = 'LEO'  # Options: 'LEO', 'GEO', 'GTO'
+use_spherical_harmonics = False  # Set to True for higher fidelity
+planet_case = 'Earth'  # Options: 'Earth', 'Mars'
+
+print(f"Orbit Type: {orbit_case}")
+print(f"Planet: {planet_case}")
+print(f"Spherical Harmonics: {use_spherical_harmonics}")
+```
+
+## Running the Simulation
+
+Now let's import and run the basic orbit scenario:
+
+```{python}
+#| output: false
+#| warning: false
+
+# Import the scenario script
+import scenarioBasicOrbit
+
+# Run the simulation
+final_diff, figure_list = scenarioBasicOrbit.run(
+    show_plots=False,  # We'll create our own plots below
+    orbitCase=orbit_case,
+    useSphericalHarmonics=use_spherical_harmonics,
+    planetCase=planet_case
+)
+
+print(f"✓ Simulation completed successfully")
+if use_spherical_harmonics == False:
+    print(f"Final trajectory difference: {final_diff:.2f} meters")
+```
+
+## Creating the Simulation Manually
+
+Let's walk through the key steps of setting up this simulation to understand what's happening:
+
+### 1. Create Simulation Container
+
+```{python}
+# Create a new simulation
+scSim = SimulationBaseClass.SimBaseClass()
+scSim.SetProgressBar(True)
+
+# Create simulation process and task
+sim_process_name = "simProcess"
+sim_task_name = "simTask"
+dynProcess = scSim.CreateNewProcess(sim_process_name)
+simulation_time_step = macros.sec2nano(10.)  # 10 second time steps
+dynProcess.addTask(scSim.CreateNewTask(sim_task_name, simulation_time_step))
+
+print("✓ Simulation container created")
+```
+
+### 2. Create Spacecraft
+
+```{python}
+# Initialize spacecraft object
+sc_object = spacecraft.Spacecraft()
+sc_object.ModelTag = "tutorial-sat"
+
+# Add spacecraft to simulation
+scSim.AddModelToTask(sim_task_name, sc_object)
+
+print(f"✓ Spacecraft '{sc_object.ModelTag}' created")
+```
+
+### 3. Setup Gravity Model
+
+```{python}
+# Create gravity body factory
+grav_factory = simIncludeGravBody.gravBodyFactory()
+
+# Create Earth gravity model
+planet = grav_factory.createEarth()
+planet.isCentralBody = True
+
+if use_spherical_harmonics:
+    # Include J2 gravitational harmonics for Earth
+    planet.useSphericalHarmonicsGravityModel(
+        bskPath[0] + '/supportData/LocalGravData/GGM03S-J2-only.txt', 
+        2
+    )
+    print("✓ Earth gravity with J2 harmonics")
+else:
+    print("✓ Earth gravity (point mass)")
+
+# Connect gravity to spacecraft
+grav_factory.addBodiesTo(sc_object)
+
+# Get gravitational parameter
+mu = planet.mu
+print(f"  μ = {mu/1e9:.3f} × 10⁹ m³/s²")
+```
+
+### 4. Define Orbital Initial Conditions
+
+```{python}
+# Define orbit using classical orbital elements
+oe = orbitalMotion.ClassicElements()
+
+# LEO orbit parameters
+r_LEO = 7000. * 1000  # 7000 km altitude
+
+oe.a = r_LEO  # Semi-major axis
+oe.e = 0.0001  # Eccentricity (nearly circular)
+oe.i = 33.3 * macros.D2R  # Inclination
+oe.Omega = 48.2 * macros.D2R  # Right ascension of ascending node
+oe.omega = 347.8 * macros.D2R  # Argument of periapsis
+oe.f = 85.3 * macros.D2R  # True anomaly
+
+# Convert to position and velocity vectors
+r_N, v_N = orbitalMotion.elem2rv(mu, oe)
+
+print(f"\nOrbital Elements:")
+print(f"  Semi-major axis: {oe.a/1000:.1f} km")
+print(f"  Eccentricity: {oe.e:.4f}")
+print(f"  Inclination: {oe.i*macros.R2D:.1f}°")
+print(f"\nInitial Position: [{r_N[0]/1000:.1f}, {r_N[1]/1000:.1f}, {r_N[2]/1000:.1f}] km")
+print(f"Initial Velocity: [{v_N[0]/1000:.3f}, {v_N[1]/1000:.3f}, {v_N[2]/1000:.3f}] km/s")
+```
+
+### 5. Set Initial Conditions and Run
+
+```{python}
+# Set spacecraft initial state
+sc_object.hub.r_CN_NInit = r_N  # Position
+sc_object.hub.v_CN_NInit = v_N  # Velocity
+
+# Calculate orbital period
+n = np.sqrt(mu / oe.a**3)  # Mean motion
+P = 2. * np.pi / n  # Orbital period
+
+# Simulation time (0.75 orbits)
+simulation_time = macros.sec2nano(0.75 * P)
+
+print(f"\nOrbital Period: {P/60:.1f} minutes")
+print(f"Simulation Duration: {simulation_time*macros.NANO2MIN:.1f} minutes")
+```
+
+```{python}
+#| output: false
+
+# Setup data logging
+num_data_points = 100
+sampling_time = unitTestSupport.samplingTime(
+    simulation_time, 
+    simulation_time_step, 
+    num_data_points
+)
+data_rec = sc_object.scStateOutMsg.recorder(sampling_time)
+scSim.AddModelToTask(sim_task_name, data_rec)
+
+# Initialize and run simulation
+scSim.InitializeSimulation()
+scSim.ConfigureStopTime(simulation_time)
+scSim.ExecuteSimulation()
+
+print("✓ Simulation complete")
+```
+
+## Results and Visualization
+
+### Inertial Position Components
+
+Let's plot the spacecraft's position in the inertial frame:
+
+```{python}
+#| fig-cap: "Spacecraft inertial position components over time"
+#| fig-width: 10
+#| fig-height: 6
+
+# Extract logged data
+time_axis = data_rec.times()
+pos_data = data_rec.r_BN_N
+vel_data = data_rec.v_BN_N
+
+# Create position plot
+plt.figure(figsize=(10, 6))
+labels = ['X', 'Y', 'Z']
+colors = ['#1f77b4', '#ff7f0e', '#2ca02c']
+
+for idx in range(3):
+    plt.plot(
+        time_axis * macros.NANO2SEC / P, 
+        pos_data[:, idx] / 1000.,
+        color=colors[idx],
+        linewidth=2,
+        label=f'$r_{{{labels[idx]}}}$'
+    )
+
+plt.xlabel('Time [orbits]', fontsize=12)
+plt.ylabel('Inertial Position [km]', fontsize=12)
+plt.title('Spacecraft Position in Inertial Frame', fontsize=14, fontweight='bold')
+plt.legend(loc='best', fontsize=11)
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()
+```
+
+### Orbit in Perifocal Frame
+
+Visualize the orbit shape in the perifocal reference frame:
+
+```{python}
+#| fig-cap: "Orbital trajectory in the perifocal frame"
+#| fig-width: 8
+#| fig-height: 8
+
+# Calculate orbit parameters
+b = oe.a * np.sqrt(1 - oe.e**2)  # Semi-minor axis
+p = oe.a * (1 - oe.e**2)  # Semi-latus rectum
+
+# Create figure with equal aspect ratio
+fig, ax = plt.subplots(figsize=(8, 8))
+
+# Set axis limits
+r_max = oe.a * (1 + oe.e) * 1.25 / 1000  # km
+ax.set_xlim(-r_max, r_max)
+ax.set_ylim(-r_max, r_max)
+ax.set_aspect('equal')
+
+# Draw Earth
+earth_radius = planet.radEquator / 1000  # km
+earth = plt.Circle((0, 0), earth_radius, color='#008800', alpha=0.8, label='Earth')
+ax.add_patch(earth)
+
+# Plot actual trajectory
+r_data = []
+f_data = []
+for idx in range(len(pos_data)):
+    oe_data = orbitalMotion.rv2elem(mu, pos_data[idx], vel_data[idx])
+    r_data.append(oe_data.rmag / 1000)  # Convert to km
+    f_data.append(oe_data.f + oe_data.omega - oe.omega)
+
+x_data = np.array(r_data) * np.cos(f_data)
+y_data = np.array(r_data) * np.sin(f_data)
+
+plt.plot(x_data, y_data, 'r-', linewidth=2.5, label='Actual Trajectory')
+
+# Draw osculating orbit
+f_osculating = np.linspace(0, 2*np.pi, 200)
+r_osculating = p / (1 + oe.e * np.cos(f_osculating)) / 1000  # km
+x_osc = r_osculating * np.cos(f_osculating)
+y_osc = r_osculating * np.sin(f_osculating)
+
+plt.plot(x_osc, y_osc, '--', color='#555555', linewidth=1.5, 
+         label='Osculating Orbit', alpha=0.7)
+
+# Mark start position
+plt.plot(x_data[0], y_data[0], 'go', markersize=10, label='Start', zorder=5)
+
+plt.xlabel('$i_e$ Coordinate [km]', fontsize=12)
+plt.ylabel('$i_p$ Coordinate [km]', fontsize=12)
+plt.title('Orbital Trajectory (Perifocal Frame)', fontsize=14, fontweight='bold')
+plt.legend(loc='upper right', fontsize=10)
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()
+```
+
+### Trajectory Accuracy
+
+Compare the numerical trajectory with the theoretical osculating orbit:
+
+```{python}
+#| fig-cap: "Difference between numerical and theoretical trajectories"
+#| fig-width: 10
+#| fig-height: 6
+
+# Calculate trajectory differences
+E0 = orbitalMotion.f2E(oe.f, oe.e)
+M0 = orbitalMotion.E2M(E0, oe.e)
+n = np.sqrt(mu / oe.a**3)
+
+delta_r = np.zeros((len(pos_data), 3))
+oe2 = copy(oe)
+
+for idx in range(len(pos_data)):
+    M = M0 + n * time_axis[idx] * macros.NANO2SEC
+    Et = orbitalMotion.M2E(M, oe.e)
+    oe2.f = orbitalMotion.E2f(Et, oe.e)
+    rv, vv = orbitalMotion.elem2rv(mu, oe2)
+    delta_r[idx] = pos_data[idx] - rv
+
+# Plot differences
+plt.figure(figsize=(10, 6))
+
+for idx in range(3):
+    plt.plot(
+        time_axis * macros.NANO2SEC / P,
+        delta_r[:, idx],
+        color=colors[idx],
+        linewidth=2,
+        label=f'$\\Delta r_{{{labels[idx]}}}$'
+    )
+
+plt.xlabel('Time [orbits]', fontsize=12)
+plt.ylabel('Position Difference [m]', fontsize=12)
+plt.title('Numerical vs Theoretical Trajectory Differences', fontsize=14, fontweight='bold')
+plt.legend(loc='best', fontsize=11)
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()
+
+# Report final error
+final_error = np.linalg.norm(delta_r[-1])
+print(f"\nFinal trajectory error: {final_error:.2f} meters")
+print(f"This represents {final_error/oe.a*1e6:.3f} ppm of the orbit radius")
+```
+
+## Summary
+
+This scenario demonstrated:
+
+1.  **Creating a basic orbital simulation** with Basilisk's modular architecture
+2.  **Setting up gravitational models** for celestial bodies
+3.  **Defining orbital initial conditions** using classical orbital elements
+4.  **Running time-domain simulations** of spacecraft dynamics
+5.  **Visualizing results** in both inertial and perifocal reference frames
+6.  **Validating numerical accuracy** against analytical solutions
+
+The simulation shows excellent agreement between the numerical propagation and theoretical orbit, with position errors on the order of meters after propagating for nearly a full orbit.
+
+## Next Steps
+
+To explore further:
+
+-   Try different orbit types: `'GEO'` or `'GTO'`
+-   Enable spherical harmonics: `use_spherical_harmonics = True`
+-   Simulate Mars orbits: `planet_case = 'Mars'`
+-   Extend simulation time to observe long-term effects
+-   Add perturbations like atmospheric drag or solar radiation pressure
+
+## References
+
+-   [Basilisk Documentation](https://hanspeterschaub.info/basilisk/)
+-   [Orbital Mechanics by Curtis](https://www.elsevier.com/books/orbital-mechanics-for-engineering-students/curtis/978-0-08-097747-8)

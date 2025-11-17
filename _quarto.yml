@@ -11,7 +11,7 @@ website:
       - text: "Tutorials"
         menu:
           - text: "Basic Orbit"
-            file: docs/scenarioBasicOrbit.qmd
+            file: docs/main/scenarioBasicOrbit.qmd
   
 format:
   html:

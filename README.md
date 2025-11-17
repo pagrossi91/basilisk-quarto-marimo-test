@@ -4,7 +4,7 @@ This repository contains tutorials and documentation for spacecraft simulations 
 
 ## 📚 Documentation Site
 
-Visit the live documentation: **[https://YOUR_USERNAME.github.io/basilisk-simulations/](https://YOUR_USERNAME.github.io/basilisk-simulations/)**
+Visit the live documentation: **[https://pagrossi91.github.io/basilisk-quarto-marimo-test/](https://pagrossi91.github.io/basilisk-quarto-marimo-test/)**
 
 *(Replace with your actual GitHub Pages URL after publishing)*
 
@@ -27,7 +27,7 @@ Visit the live documentation: **[https://YOUR_USERNAME.github.io/basilisk-simula
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/YOUR_USERNAME/basilisk-simulations.git
+git clone https://github.com/pagrossi91/basilisk-quarto-marimo-test.git
 cd basilisk-simulations
 ```
 
@@ -41,7 +41,7 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 4. Install Python dependencies:
 ```bash
-pip install jupyter nbformat nbclient ipykernel matplotlib numpy pandas
+pip3 install jupyter nbformat nbclient ipykernel matplotlib numpy pandas
 ```
 
 ## 📝 Contributing

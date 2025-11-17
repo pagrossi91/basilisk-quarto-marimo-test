@@ -22,7 +22,7 @@ Basilisk is an open-source spacecraft simulation framework developed by the Univ
 
 Explore these tutorials to learn Basilisk fundamentals:
 
-- **[Basic Orbit Scenario](docs/scenarioBasicOrbit.html)** - Learn how to set up orbital simulations with different gravity models and orbit types
+- **[Basic Orbit Scenario](docs/main/scenarioBasicOrbit.html)** - Learn how to set up orbital simulations with different gravity models and orbit types
 
 ### Installation
 
